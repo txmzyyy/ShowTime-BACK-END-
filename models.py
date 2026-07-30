@@ -21,6 +21,15 @@ class Movie(db.Model):
 
     screenings = db.relationship("Screening", backref="movie", lazy=True)
 
+class Hall(db.Model):
+    __tablename__ = "halls"
+
+    id = db.Column(db.Integer, primary_key=True)
+    hall_name = db.Column(db.String(50), nullable=False)
+    screen_type = db.Column(db.String(50), nullable=False)
+
+    screenings = db.relationship("Screening", backref="hall", lazy=True)
+
 class Screening(db.Model):
     __tablename__ = "screenings"
 
