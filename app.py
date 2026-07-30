@@ -24,20 +24,20 @@ def get_movies():
     movies = Movie.query.all()
     return jsonify([movie.to_dict()for movie in movies])
 
-@app.route("/movies/<int:id>")
+@app.route("/movies/<int:id>", methods=["GET"])
 def get_movie(id):
-    movie = Movie.query.all()
+    movie = Movie.query.get_or_404()
     return jsonify([movie.to_dict()])
 
-@app.route("/screenings")
+@app.route("/screenings", methods=["GET"])
 def get_screenings():
-    screenings = screenings.query.all()
+    screenings = Screening.query.all()
     return jsonify([screening.to_dict() for screening in screenings])
 
 @app.route("/bookings", methods=["POST"])
 def get_booking():
     data = request.get_json()
-    booking = booking(user_name = data["user_name"],
+    booking = Booking(user_name = data["user_name"],
     screening_id=data["screening_id"], seats=data["seats"])
     db.session.add(booking)
     db.session.commit()
