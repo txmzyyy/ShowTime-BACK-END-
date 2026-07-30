@@ -4,9 +4,13 @@ from config import Config
 from extensions import db, migrate
 from models import Movie, Screening, Booking, User
 from flask import request, jsonify
+from flask_jwt_extended import JWTManager, create_access_token
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app= Flask(__name__)
 app.config.from_object(Config)
+app.config["JWT_SECRET_KEY"] = "showtime-secret-key"
+jwt = JWTManager(app)
 db.init_app(app)
 migrate.init_app(app, db)
 CORS(app)
