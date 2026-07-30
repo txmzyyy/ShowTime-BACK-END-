@@ -11,7 +11,6 @@ A Flask REST API for the ShowTime Movie Booking System. The backend manages user
 - Read Movies
 - Read Screenings
 - Create and View Bookings
-- MySQL database integration
 - Flask-Migrate database migrations
 - Environment variable configuration using `.env`
 
@@ -52,7 +51,7 @@ ShowTime-BACK-END/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:txmzyyy/ShowTime-BACK-END-.git
 cd ShowTime-BACK-END
 ```
 
@@ -91,7 +90,7 @@ Create a `.env` file in the project root.
 Example:
 
 ```env
-DATABASE_URI=mysql+pymysql://username:password@localhost/showtime
+DATABASE_URI=sqlite:///showtime.db
 SECRET_KEY=your_secret_key
 JWT_SECRET_KEY=your_jwt_secret_key
 ```
