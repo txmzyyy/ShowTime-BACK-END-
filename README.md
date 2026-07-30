@@ -25,7 +25,6 @@ A Flask REST API for the ShowTime Movie Booking System. The backend manages user
 - Flask-Migrate
 - Flask-JWT-Extended
 - Flask-CORS
-- MySQL
 - Werkzeug
 - python-dotenv
 
