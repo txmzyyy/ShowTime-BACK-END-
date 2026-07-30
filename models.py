@@ -7,7 +7,6 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), default="customer")
-
     bookings = db.relationship("Booking", backref="user", lazy=True)
 
 class Movie(db.Model):
@@ -18,8 +17,17 @@ class Movie(db.Model):
     duration = db.Column(db.String(20))
     description = db.Column(db.Text)
     poster_url = db.Column(db.String(255))
-
     screenings = db.relationship("Screening", backref="movie", lazy=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "genre": self.genre,
+            "duration": self.duration,
+            "description": self.description,
+            "poster_url": self.poster_url
+        }
 
 class Hall(db.Model):
     __tablename__ = "halls"
