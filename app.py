@@ -34,13 +34,27 @@ def get_screenings():
     screenings = Screening.query.all()
     return jsonify([screening.to_dict() for screening in screenings])
 
+#@app.route("/bookings", methods=["POST"])
+#def get_booking():
+    #data = request.get_json()
+    #booking = Booking(user_name = data["user_name"],
+    #screening_id=data["screening_id"], seats=data["seats"])
+    #db.session.add(booking)
+    #db.session.commit()
+    #return jsonify(booking.to_dict()), 201
+
 @app.route("/bookings", methods=["POST"])
-def get_booking():
+def create_booking():
     data = request.get_json()
-    booking = Booking(user_name = data["user_name"],
-    screening_id=data["screening_id"], seats=data["seats"])
+    booking = Booking(user_id=data["user_id"],
+                      screening_id=data["screening_id"],
+                      number_of_tickets=data["number_of_tickets"],
+                      booking_status=data["booking_status"],
+                      booking_date=data["booking_date"])
+
     db.session.add(booking)
     db.session.commit()
+
     return jsonify(booking.to_dict()), 201
 
 if __name__ == "__main__":
