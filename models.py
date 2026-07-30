@@ -12,8 +12,8 @@ class User(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "first name": self.first_name,
-            "last name": self.last_name,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
             "email": self.email,
             "password": self.password,
             "role": self.role,
@@ -48,8 +48,8 @@ class Hall(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "hall name": self.hall_name,
-            "screen type": self.screen_type,
+            "hall_name": self.hall_name,
+            "screen_type": self.screen_type,
         }
 
 class Screening(db.Model):
@@ -85,11 +85,11 @@ class Booking(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "user id": self.user_id,
-            "screening id": self.screening_id,
-            "number of tickets": self.number_of_tickets,
-            "booking status": self.booking_status,
-            "booking date": self.booking_date,
+            "user_id": self.user_id,
+            "screening_id": self.screening_id,
+            "number_of_tickets": self.number_of_tickets,
+            "booking_status": self.booking_status,
+            "booking_date": self.booking_date,
         }
 
 class Ticket(db.Model):
