@@ -9,7 +9,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app= Flask(__name__)
 app.config.from_object(Config)
-app.config["JWT_SECRET_KEY"] = "showtime-secret-key"
 jwt = JWTManager(app)
 db.init_app(app)
 migrate.init_app(app, db)
@@ -30,8 +29,8 @@ def get_movies():
 
 @app.route("/movies/<int:id>", methods=["GET"])
 def get_movie(id):
-    movie = Movie.query.get_or_404()
-    return jsonify([movie.to_dict()])
+    movie = Movie.query.get_or_404(id)
+    return jsonify(movie.to_dict()), 200
 
 @app.route("/screenings", methods=["GET"])
 def get_screenings():
@@ -48,7 +47,8 @@ def get_bookings():
 @jwt_required()
 def create_booking():
     data = request.get_json()
-    booking = Booking(user_id=data["user_id"],
+    current_user = get_jwt_identity()
+    booking = Booking(user_id=current_user,
                       screening_id=data["screening_id"],
                       number_of_tickets=data["number_of_tickets"],
                       booking_status=data["booking_status"],
@@ -95,7 +95,7 @@ def update_user(id):
     user.first_name = data.get("first_name", user.first_name)
     user.last_name = data.get("last_name", user.last_name)
     user.email = data.get("email", user.email)
-    user.password = data.get("password", user.password)
+    if "password" in data: user.password = generate_password_hash(data["password"])
     user.role = data.get("role", user.role)
 
     db.session.commit()
